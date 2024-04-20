@@ -1,13 +1,12 @@
-export const jobTypes = `#graphql
+export const jobTypesDef = `#graphql
     type Job{
         id:ID!,
-        data: String!,
-        status: String!,
+        data: String!,        
         result: String
     }
 
     type Query{
-        job: Job
+        job(id: ID!): Job
     }
 
     input CreateJobInput{

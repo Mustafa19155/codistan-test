@@ -1,8 +1,9 @@
-import userSchema from "./user/userSchema";
+import userSchema from "./user";
+import jobSchema from "./job";
 
 const schema = {
-  typeDefs: userSchema.types,
-  resolvers: userSchema.resolvers,
+  typeDefs: [userSchema.types, jobSchema.types],
+  resolvers: [userSchema.resolvers, jobSchema.resolvers],
 };
 
 export default schema;

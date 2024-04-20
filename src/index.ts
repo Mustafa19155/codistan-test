@@ -23,5 +23,3 @@ async function connectWithDB() {
 }
 connectWithDB();
 startServer();
-
-processJobs();

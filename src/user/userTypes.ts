@@ -7,8 +7,12 @@ export const userTypesDef = `#graphql
     email: String!
   }
 
+  type UserList {
+  users: [User!]!
+  hasNext: Boolean!
+}
   type Query {
-    users(page: Int, limit: Int, sortBy: String): [User!]!
+    users(page: Int, limit: Int, sortBy: String): UserList
     user(id: ID!): User
   }
 

@@ -4,10 +4,17 @@ import User from "./model";
 
 export const getUsers = async (page: number, limit: number, sortBy: string) => {
   try {
-    return await User.find()
+    const users = await User.find()
+      .sort(sortBy)
       .skip((page - 1) * limit)
-      .limit(limit)
-      .sort(sortBy);
+      .limit(limit);
+
+    const total = await User.countDocuments();
+
+    return {
+      users,
+      hasNext: total > page * limit,
+    };
   } catch (err) {}
 };
 

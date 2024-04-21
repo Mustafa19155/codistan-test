@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+.top-users-chart-wrapper svg,
+.users-age-chart-wrapper svg {
+  max-height: 380px !important;
+  overflow: visible;
+}

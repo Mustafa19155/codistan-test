@@ -1,15 +1,14 @@
-// funtion to allow users to create a new job with specific data and enqeue them in redis job queue
 import { GraphQLError } from "graphql";
-import { getAsync, rpushAsync } from "../redis";
-// import { jobQueue } from "../redis";
+import { redisClient } from "../redis";
+
+let jobIdCounter = 0;
 
 export const createJob = async (data: string) => {
   try {
-    rpushAsync("job_queue", data);
-    // await jobQueue.add({
-    //   data,
-    //   result: "",
-    // });
+    ++jobIdCounter;
+    const job = { id: jobIdCounter, data, status: "pending", result: null };
+    await redisClient.rPush("job_queue", JSON.stringify(job));
+    return job;
   } catch (err) {
     throw new GraphQLError(err);
   }
@@ -17,15 +16,9 @@ export const createJob = async (data: string) => {
 
 export const getJob = async (id: string) => {
   try {
-    console.log(id);
-    const job = await getAsync(`job:${id}`);
+    const job = await redisClient.get("job_queue");
     if (!job) throw new Error("Job not found");
-    return job;
-    return {
-      id: job.id,
-      data: job.data,
-      result: job.returnvalue,
-    };
+    return JSON.parse(job);
   } catch (err) {
     throw new GraphQLError(err);
   }

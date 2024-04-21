@@ -21,5 +21,6 @@ async function connectWithDB() {
     console.error("Error connecting to MongoDB: ", error);
   }
 }
+processJobs();
 connectWithDB();
 startServer();

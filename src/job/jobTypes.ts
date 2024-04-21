@@ -2,6 +2,7 @@ export const jobTypesDef = `#graphql
     type Job{
         id:ID!,
         data: String!,        
+        status: String,
         result: String
     }
 
@@ -9,8 +10,8 @@ export const jobTypesDef = `#graphql
         job(id: ID!): Job
     }
 
-    input CreateJobInput{
-        data: String!
+    input CreateJobInput{        
+        data: String!,
     }
 
     type Mutation{

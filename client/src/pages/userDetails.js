@@ -76,7 +76,7 @@ const UserDetails = () => {
       navigate("/users");
     }
     refetchUser();
-  }, []);
+  }, [queryError]);
 
   if (queryLoading) return <p>Loading...</p>;
   if (queryError) return <p>Error: {queryError.message}</p>;

@@ -4,7 +4,17 @@ import schema from "./schema";
 import mongoose from "mongoose";
 import processJobs from "./worker";
 
-const server = new ApolloServer(schema);
+const server = new ApolloServer({
+  typeDefs: schema.typeDefs,
+  resolvers: schema.resolvers,
+  formatError: (err) => {
+    // Customize error message
+    const message = err.message || "Internal server error";
+    // Customize error status code
+    const code = err.extensions?.code || 500;
+    return { message, code };
+  },
+});
 
 async function startServer() {
   const { url } = await startStandaloneServer(server, {
